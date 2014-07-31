@@ -1,0 +1,28 @@
+Name: MobiLink
+Cartridge-Short-Name: ML
+Cartridge-Version: '0.0.1'
+Compatible-Versions:
+  - '0.0.1'
+Cartridge-Vendor: sap
+Display-Name: SAP SQL Anywhere - MobiLink 
+Description: "MobiLink allows synchronization MySQL database with remote databases"
+Version: '16.0.0'
+Versions:
+  - '16.0.0'
+License: SAP Software License
+Vendor: SAP SE
+Categories:
+  - service
+  - embedded
+Website: http://www.sap.com
+Provides:
+  - mobilink-16 
+  - "mobilink"
+Endpoints:
+  - Private-IP-Name:   HTTP_HOST
+    Private-Port-Name: HTTP_PORT
+    Private-Port:      8080
+    Public-Port-Name:  PROXY_HTTP_PORT
+    Mappings:
+      - Frontend:      "/mobilink"
+        Backend:       "/"

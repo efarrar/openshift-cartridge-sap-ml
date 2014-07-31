@@ -1,0 +1,10 @@
+#!/bin/bash -e
+
+echo 'Installing MobiLink....'
+#wget -P $OPENSHIFT_TMP_DIR http://downloads.mysql.com/archives/get/file/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit.tar.gz
+#tar -xf $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit.tar.gz -C "${OPENSHIFT_TMP_DIR}"
+
+mkdir -p $OPENSHIFT_ML_DIR/versions/1/
+cp $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so $OPENSHIFT_ML_DIR/versions/1/libmyodbc5.so
+
+tar -xf $OPENSHIFT_TMP_DIR/ml.tar -C "${OPENSHIFT_ML_DIR}/versions/1/"

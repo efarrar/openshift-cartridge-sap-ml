@@ -1,0 +1,21 @@
+#!/bin/bash
+
+function start {
+  $OPENSHIFT_ML_DIR/versions/1/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/1/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};UID=${OPENSHIFT_MYSQL_DB_USERNAME};pwd=${OPENSHIFT_MYSQL_DB_PASSWORD};Database=foo" -ud -zs python -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log
+}
+
+function stop {
+  $OPENSHIFT_ML_DIR/versions/1/mlstop python
+}
+
+case "$1" in
+  start)
+    start
+  ;;
+  stop)
+    stop
+  ;;
+  *)
+    echo 0
+  ;;
+esac
