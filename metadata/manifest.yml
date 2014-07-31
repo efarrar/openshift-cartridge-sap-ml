@@ -20,10 +20,10 @@ Provides:
   - mobilink-16 
   - "mobilink"
 Endpoints:
-  - Private-IP-Name:   HTTP_HOST
-    Private-Port-Name: HTTP_PORT
+  - Private-IP-Name:   HOST
+    Private-Port-Name: PORT
     Private-Port:      8080
-    Public-Port-Name:  PROXY_HTTP_PORT
+    Public-Port-Name:  PROXY_PORT
     Mappings:
       - Frontend:      "/mobilink"
         Backend:       "/"
