@@ -9,6 +9,7 @@ Description: "MobiLink allows synchronization MySQL database with remote databas
 Version: '16.0.0'
 Versions:
   - '16.0.0'
+Source-Url: git://github.com/efarrar/openshift-cartridge-sap-ml.git
 License: SAP Software License
 Vendor: SAP SE
 Categories:
