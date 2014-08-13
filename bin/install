@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
 echo 'Installing MobiLink....'
 wget -P $OPENSHIFT_TMP_DIR http://downloads.mysql.com/archives/get/file/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit.tar.gz
 tar -xf $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit.tar.gz -C "${OPENSHIFT_TMP_DIR}"
@@ -10,3 +12,13 @@ cp $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/li
 wget -P $OPENSHIFT_TMP_DIR https://s3-us-west-2.amazonaws.com/efarrar-ml-testing-temp/openshift-mobilink.tar.gz
 tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/versions/1/"
 
+ln -s $OPENSHIFT_ML_DIR/versions/1/libodbcinst.so $OPENSHIFT_ML_DIR/versions/1/libodbcinst.so.1
+
+mysql << EOF
+CREATE DATABASE mobilink;
+CREATE USER mobilink IDENTIFIED BY 'sql';
+GRANT ALL ON *.* TO 'mobilink'@'%';
+FLUSH PRIVILEGES;
+EOF
+
+mysql -u mobilink --password=sql -D mobilink < $OPENSHIFT_ML_DIR/versions/1/syncmys.sql
