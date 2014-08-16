@@ -28,3 +28,20 @@ GRANT ALL ON *.* TO '${ML_USERNAME}'@'%' IDENTIFIED BY '${ML_PASSWORD}';
 EOF
 
 mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D $OPENSHIFT_APP_NAME < $OPENSHIFT_ML_DIR/versions/16.0/mobilink/syncmys.sql
+
+client_result ""
+client_result "============================="
+client_result "SAP SQL Anywhere 16 Mobilink added.  Please take note of these credentials:"
+client_result ""
+client_result "MySQL Database Name: ${ML_DB_NAME}"
+client_result ""
+client_result "MobiLink User Name: ${ML_USERNAME}"
+client_result ""
+client_result "MobiLink User Password: ${ML_PASSWORD}"
+client_result ""
+client_result "============================="
+client_result ""
+
+cart_props "username=${ML_USERNAME}"
+cart_props "password=${ML_PASSWORD}"
+cart_props "database_name=${ML_DB_NAME}"
