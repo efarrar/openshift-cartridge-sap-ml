@@ -2,20 +2,29 @@
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
-echo 'Installing MobiLink....'
 wget -P $OPENSHIFT_TMP_DIR http://downloads.mysql.com/archives/get/file/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit.tar.gz
 tar -xf $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit.tar.gz -C "${OPENSHIFT_TMP_DIR}"
 
-mkdir -p $OPENSHIFT_ML_DIR/versions/1/
-cp $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so $OPENSHIFT_ML_DIR/versions/1/libmyodbc5.so
+mkdir -p $OPENSHIFT_ML_DIR/versions/16.0/mysql-connector-odbc/
+cp $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so $OPENSHIFT_ML_DIR/versions/16.0/mysql-connector-odbc/libmyodbc5.so
 
 wget -P $OPENSHIFT_TMP_DIR https://s3-us-west-2.amazonaws.com/efarrar-ml-testing-temp/openshift-mobilink.tar.gz
-tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/versions/1/"
+tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/versions/16.0/mobilink"
 
-ln -s $OPENSHIFT_ML_DIR/versions/1/libodbcinst.so $OPENSHIFT_ML_DIR/versions/1/libodbcinst.so.1
+ln -s $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so.1
+
+env_dir="${OPENSHIFT_SA_DIR}/env"
+
+ML_DB_NAME=$OPENSHIFT_APP_NAME
+ML_USERNAME=$(generate_username)
+ML_PASSWORD=$(generate_password)
+
+set_env_var 'ML_DB_NAME' ${ML_DB_NAME} $env_dir
+set_env_var 'ML_USERNAME' ${ML_USERNAME} $env_dir
+set_env_var 'ML_PASSWORD' ${ML_PASSWORD} $env_dir
 
 mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT << EOF
-GRANT ALL ON *.* TO 'mobilink'@'%' IDENTIFIED BY 'sql';
+GRANT ALL ON *.* TO '${ML_USERNAME}'@'%' IDENTIFIED BY '${ML_PASSWORD}';
 EOF
 
-mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D $OPENSHIFT_APP_NAME < $OPENSHIFT_ML_DIR/versions/1/syncmys.sql
+mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D $OPENSHIFT_APP_NAME < $OPENSHIFT_ML_DIR/versions/16.0/mobilink/syncmys.sql

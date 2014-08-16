@@ -4,11 +4,11 @@ Cartridge-Version: '0.0.1'
 Compatible-Versions:
   - '0.0.1'
 Cartridge-Vendor: sap
-Display-Name: SAP SQL Anywhere - MobiLink 
-Description: "MobiLink allows synchronization MySQL database with remote databases"
-Version: '16.0.0'
+Display-Name: MobiLink 
+Description: "SAP SQL Anywhere -- MobiLink synchronization between MySQL and remote databases"
+Version: '16.0'
 Versions:
-  - '16.0.0'
+  - '16.0'
 Source-Url: git://github.com/efarrar/openshift-cartridge-sap-ml.git
 License: SAP Software License
 Vendor: SAP SE
