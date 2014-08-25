@@ -14,7 +14,7 @@ tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/ver
 
 ln -s $OPENSHIFT_ML_DIR/versions/1/libodbcinst.so $OPENSHIFT_ML_DIR/versions/1/libodbcinst.so.1
 
-mysql << EOF
+mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD << EOF
 CREATE DATABASE mobilink;
 CREATE USER mobilink IDENTIFIED BY 'sql';
 GRANT ALL ON *.* TO 'mobilink'@'%';
