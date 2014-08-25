@@ -3,7 +3,8 @@
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
 
 function start {
-  $OPENSHIFT_ML_DIR/versions/1/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/1/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};UID=mobilink;pwd=sql;Database=mobilink" -ud -zs python -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log
+  echo "Nothing to see here..."
+  #$OPENSHIFT_ML_DIR/versions/1/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/1/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};UID=mobilink;pwd=sql;Database=mobilink" -ud -zs python -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log
 }
 
 function stop {
