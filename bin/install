@@ -14,35 +14,4 @@ tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/ver
 
 ln -s $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so.1
 
-env_dir="${OPENSHIFT_ML_DIR}/env"
-
-ML_DB_NAME=$OPENSHIFT_APP_NAME
-ML_USERNAME=$(generate_username)
-ML_PASSWORD=$(generate_password)
-
-set_env_var 'ML_DB_NAME' ${ML_DB_NAME} $env_dir
-set_env_var 'ML_USERNAME' ${ML_USERNAME} $env_dir
-set_env_var 'ML_PASSWORD' ${ML_PASSWORD} $env_dir
-
-mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT << EOF
-GRANT ALL ON *.* TO '${ML_USERNAME}'@'%' IDENTIFIED BY '${ML_PASSWORD}';
-EOF
-
 mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D $OPENSHIFT_APP_NAME < $OPENSHIFT_ML_DIR/versions/16.0/mobilink/syncmys.sql
-
-client_result ""
-client_result "============================="
-client_result "SAP SQL Anywhere 16 Mobilink added.  Please take note of these credentials:"
-client_result ""
-client_result "MySQL Database Name: ${ML_DB_NAME}"
-client_result ""
-client_result "MobiLink User Name: ${ML_USERNAME}"
-client_result ""
-client_result "MobiLink User Password: ${ML_PASSWORD}"
-client_result ""
-client_result "============================="
-client_result ""
-
-cart_props "username=${ML_USERNAME}"
-cart_props "password=${ML_PASSWORD}"
-cart_props "database_name=${ML_DB_NAME}"
