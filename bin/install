@@ -8,6 +8,7 @@ tar -xf $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit.t
 mkdir -p $OPENSHIFT_ML_DIR/versions/16.0/mysql-connector-odbc/
 cp $OPENSHIFT_TMP_DIR/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so $OPENSHIFT_ML_DIR/versions/16.0/mysql-connector-odbc/libmyodbc5.so
 
+mkdir -p $OPENSHIFT_ML_DIR/versions/16.0/mobilink/
 wget -P $OPENSHIFT_TMP_DIR https://s3-us-west-2.amazonaws.com/efarrar-ml-testing-temp/openshift-mobilink.tar.gz
 tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/versions/16.0/mobilink"
 
