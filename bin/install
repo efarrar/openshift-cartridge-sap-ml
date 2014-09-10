@@ -14,7 +14,7 @@ tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/ver
 
 ln -s $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so.1
 
-env_dir="${OPENSHIFT_SA_DIR}/env"
+env_dir="${OPENSHIFT_ML_DIR}/env"
 
 ML_DB_NAME=$OPENSHIFT_APP_NAME
 ML_USERNAME=$(generate_username)
