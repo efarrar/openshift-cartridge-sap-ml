@@ -1,10 +1,10 @@
 Name: mobilink
+Display-Name: MobiLink 16.0 
 Cartridge-Short-Name: ML
 Cartridge-Version: '0.0.1'
 Compatible-Versions:
   - '0.0.1'
 Cartridge-Vendor: sap
-Display-Name: MobiLink 
 Description: "SAP SQL Anywhere -- MobiLink synchronization between MySQL and remote databases"
 Version: '16.0'
 Versions:
