@@ -5,7 +5,7 @@ source $OPENSHIFT_CARTRIDGE_SDK_BASH
 function check_license {
 # Display License File
 client_result "======= SAP License ========="
-while read -r line; do client_result "$line"; done < $OPENSHIFT_ML_DIR/license/license.txt
+# while read -r line; do client_result "$line"; done < $OPENSHIFT_ML_DIR/license/license.txt
 client_result "==== End of SAP License ====="
 client_result ""
 client_result "======= MUST READ ==========="
@@ -23,7 +23,7 @@ return 0
 
 function start {
 if [ ${ACCEPT_SAP_LICENSE_ML} == Y ] || [ ${ACCEPT_SAP_LICENSE_ML} == y ]; then
-  $OPENSHIFT_ML_DIR/versions/16.0/mobilink/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/16.0/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};Database=${ML_DB_NAME};uid=${ML_USERNAME};pwd=${ML_PASSWORD}" -ud -zs $OPENSHIFT_APP_NAME -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log
+  $OPENSHIFT_ML_DIR/versions/16.0/mobilink/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/16.0/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};Database=${ML_DB_NAME};uid=${ML_USERNAME};pwd=${ML_PASSWORD}" -ud -zs $OPENSHIFT_APP_NAME -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log -zf -zu+
 else
   check_license
 fi
