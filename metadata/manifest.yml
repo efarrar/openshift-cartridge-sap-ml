@@ -5,7 +5,7 @@ Cartridge-Version: '0.0.1'
 Compatible-Versions:
   - '0.0.1'
 Cartridge-Vendor: sap
-Description: "SAP SQL Anywhere -- MobiLink synchronization between MySQL and remote databases"
+Description: "Synchronization between MySQL and remote databases using SAP SQL Anywhere"
 Version: '16.0'
 Versions:
   - '16.0'
