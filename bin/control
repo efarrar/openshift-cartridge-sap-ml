@@ -35,6 +35,7 @@ else
   else
     check_license
   fi
+fi
 }
 
 function stop {
