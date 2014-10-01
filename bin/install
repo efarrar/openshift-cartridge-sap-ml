@@ -12,18 +12,18 @@ tar -xf $OPENSHIFT_TMP_DIR/openshift-mobilink.tar.gz -C "${OPENSHIFT_ML_DIR}/ver
 
 ln -s $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so.1
 
-ML_DB_NAME=mobilink
-ML_USERNAME=$(generate_username)
-ML_PASSWORD=$(generate_password)
-ML_FIRST_RUN="Y"
+OPENSHIFT_ML_DB_NAME=mobilink
+OPENSHIFT_ML_USERNAME=$(generate_username)
+OPENSHIFT_ML_PASSWORD=$(generate_password)
+OPENSHIFT_ML_FIRST_RUN="Y"
 
 env_dir="${OPENSHIFT_ML_DIR}/env"
 
-set_env_var 'ML_DB_NAME' ${ML_DB_NAME} $env_dir
-set_env_var 'ML_USERNAME' ${ML_USERNAME} $env_dir
-set_env_var 'ML_PASSWORD' ${ML_PASSWORD} $env_dir
-set_env_var 'ML_FIRST_RUN' ${ML_FIRST_RUN} $env_dir
+set_env_var 'OPENSHIFT_ML_DB_NAME' ${OPENSHIFT_ML_DB_NAME} $env_dir
+set_env_var 'OPENSHIFT_ML_USERNAME' ${OPENSHIFT_ML_USERNAME} $env_dir
+set_env_var 'OPENSHIFT_ML_PASSWORD' ${OPENSHIFT_ML_PASSWORD} $env_dir
+set_env_var 'OPENSHIFT_ML_FIRST_RUN' ${OPENSHIFT_ML_FIRST_RUN} $env_dir
 
 mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D $OPENSHIFT_APP_NAME -e "CREATE SCHEMA mobilink; GRANT ALL ON mobilink.* to '${ML_USERNAME}'@'%' IDENTIFIED BY '${ML_PASSWORD}'; GRANT ALL ON ${OPENSHIFT_APP_NAME}.* TO '${ML_USERNAME}'@'%'"
 
-mysql -u $ML_USERNAME --password=$ML_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D mobilink < $OPENSHIFT_ML_DIR/versions/16.0/mobilink/syncmys.sql
+mysql -u $OPENSHIFT_ML_USERNAME --password=$OPENSHIFT_ML_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D mobilink < $OPENSHIFT_ML_DIR/versions/16.0/mobilink/syncmys.sql
