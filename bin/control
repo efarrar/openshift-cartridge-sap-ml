@@ -28,31 +28,22 @@ return 0
 }
 
 function start {
-if [ ${OPENSHIFT_ML_FIRST_RUN} == Y ]; then
-  OPENSHIFT_ML_FIRST_RUN="N"
-  set_env_var 'OPENSHIFT_ML_FIRST_RUN' ${OPENSHIFT_ML_FIRST_RUN} $env_dir
-
-  client_result "MobiLink 16.0 added. Please make note of these credentials:"
-  client_result ""
-  client_result "       MobiLink User: ${OPENSHIFT_ML_USERNAME}"
-  client_result "   MobiLink Password: ${OPENSHIFT_ML_PASSWORD}"
-  client_result "       Database Name: ${OPENSHIFT_ML_DB_NAME}"
-  client_result ""
-  client_result "MobiLink URL: http://${OPENSHIFT_APP_DNS}/mobilink"
-  client_result ""
-  client_result "   +---------------------------------------------------+"
-  client_result "   |  THE MOBILINK SERVER HAS *NOT* BEEN STARTED YET!  |"  
-  client_result "   +---------------------------------------------------+"
-  client_result ""
-  client_result "Before the MobiLink Server can be started, you must view and accept the End User License Agreement"
-  client_result ""
-  client_result "Please read the license agreement and instruction on accepting:"
-  client_result "   rhc cartridge-start mobilink --app ${OPENSHIFT_APP_NAME} | more"
-  
-else  
-  if [ ${OPENSHIFT_ML_ACCEPT_SAP_LICENSE} == Y ] || [ ${OPENSHIFT_ML_ACCEPT_SAP_LICENSE} == y ]; then
-    $OPENSHIFT_ML_DIR/versions/16.0/mobilink/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/16.0/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};Database=${OPENSHIFT_ML_DB_NAME};uid=${OPENSHIFT_ML_USERNAME};pwd=${OPENSHIFT_ML_PASSWORD}" -ud -zs $OPENSHIFT_APP_NAME -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log -zf -zu+
-  else
+if [ ${OPENSHIFT_ML_ACCEPT_SAP_LICENSE} == Y ] || [ ${OPENSHIFT_ML_ACCEPT_SAP_LICENSE} == y ]; then
+  $OPENSHIFT_ML_DIR/versions/16.0/mobilink/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/16.0/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};Database=${OPENSHIFT_ML_DB_NAME};uid=${OPENSHIFT_ML_USERNAME};pwd=${OPENSHIFT_ML_PASSWORD}" -ud -zs $OPENSHIFT_APP_NAME -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log -zf -zu+
+else
+  if [ ${OPENSHIFT_ML_FIRST_RUN} == Y ]; then
+    OPENSHIFT_ML_FIRST_RUN="N"
+    set_env_var 'OPENSHIFT_ML_FIRST_RUN' ${OPENSHIFT_ML_FIRST_RUN} $env_dir
+    client_result ""
+    client_result "   +---------------------------------------------------+"
+    client_result "   |  THE MOBILINK SERVER HAS *NOT* BEEN STARTED YET!  |"  
+    client_result "   +---------------------------------------------------+"
+    client_result ""
+    client_result "Before the MobiLink Server can be started, you must view and accept the End User License Agreement"
+    client_result ""
+    client_result "Please read the license agreement and instruction on accepting:"
+    client_result "   rhc cartridge-start mobilink --app ${OPENSHIFT_APP_NAME} | more"
+  else  
     check_license
   fi
 fi
