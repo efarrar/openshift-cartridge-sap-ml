@@ -1,4 +1,4 @@
-#!/bin/bash -eu
+#!/bin/bash -e
 
 $OPENSHIFT_ML_DIR/versions/16.0/mobilink/mlstop $OPENSHIFT_APP_NAME
 
