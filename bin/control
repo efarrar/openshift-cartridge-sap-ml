@@ -30,8 +30,8 @@ if [ ${ML_FIRST_RUN} == Y ]; then
 
   client_result "MobiLink 16.0 added. Please make note of these credentials:"
   client_result ""
-  client_result "       MobiLink User: ${ML_DB_USERNAME}"
-  client_result "   MobiLink Password: ${ML_DB_PASSWORD}"
+  client_result "       MobiLink User: ${ML_USERNAME}"
+  client_result "   MobiLink Password: ${ML_PASSWORD}"
   client_result "       Database Name: ${ML_DB_NAME}"
   client_result ""
   client_result "MobiLink URL: http://${OPENSHIFT_APP_DNS}/mobilink"
