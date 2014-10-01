@@ -14,7 +14,7 @@ client_result "======= MUST READ ==========="
 client_result "You haven't accepted the license agreement,"
 client_result "thus the use of the cartridge is prohibited."
 client_result "-----------------------------"
-client_result "To indicate that you accept this license, "
+client_result "To indicate that you have read and accepted this license, "
 client_result "please set the ACCEPT_SAP_LICENSE_ML variable to "Y" with command:"
 client_result "  rhc set-env ACCEPT_SAP_LICENSE_ML=Y --app ${OPENSHIFT_APP_NAME}"
 client_result "then start the cartridge with command:"
@@ -27,8 +27,24 @@ function start {
 if [ ${ML_FIRST_RUN} == Y ]; then
   ML_FIRST_RUN="N"
   set_env_var 'ML_FIRST_RUN' ${ML_FIRST_RUN} $env_dir
-  client_result "Cartridge installed successfully"
-  client_result "Please read and accept license"
+
+  client_result "MobiLink 16.0 added. Please make note of these credentials:"
+  client_result ""
+  client_result "   MobiLink User: ${ML_DB_USERNAME}"
+  client_result "   MobiLink Password: ${ML_DB_PASSWORD}"
+  client_result "   Database Name: ${ML_DB_NAME}"
+  client_result ""
+  client_result "MobiLink URL: http://${OPENSHIFT_APP_DNS}/mobilink"
+  client_result ""
+  client_result "***"
+  client_result "THE MOBILINK SERVER HAS *NOT* BEEN STARTED"
+  client_result "***"
+  client_result ""
+  client_result "Before the MobiLink Server can be started, you must view and accept the End User License Agreement"
+  client_result ""
+  client_result "To read the license agreement and instruction on accepting execute:"
+  client_result "  rhc cartridge-start mobilink --app ${OPENSHIFT_APP_NAME} | more"
+  
 else  
   if [ ${ACCEPT_SAP_LICENSE_ML} == Y ] || [ ${ACCEPT_SAP_LICENSE_ML} == y ]; then
     $OPENSHIFT_ML_DIR/versions/16.0/mobilink/mlsrv16 -c "Driver=${OPENSHIFT_ML_DIR}/versions/16.0/mysql-connector-odbc-5.1.6-linux-glibc2.3-x86-64bit/lib/libmyodbc5.so;Server=${OPENSHIFT_MYSQL_DB_HOST};Database=${ML_DB_NAME};uid=${ML_USERNAME};pwd=${ML_PASSWORD}" -ud -zs $OPENSHIFT_APP_NAME -x http{host=$OPENSHIFT_ML_HOST\;port=$OPENSHIFT_ML_PORT} -o $OPENSHIFT_LOG_DIR/ml.log -zf -zu+
