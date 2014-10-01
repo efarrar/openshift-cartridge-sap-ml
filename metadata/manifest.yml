@@ -19,6 +19,19 @@ Website: http://www.sap.com
 Provides:
   - mobilink-16 
   - "mobilink"
+Cart-Data:
+  - Key: username
+    Type: cart_data
+    Description: "MobiLink User"
+  - Key: password
+    Type: cart_data
+    Description: "Password for MobiLink User"
+  - Key: database_name
+    Type: cart_data
+    Description: "MobiLink Database Name"
+  - Key: mobilink_url
+    Type: cart_data
+    Description: "URL for MobiLink Server"  
 Endpoints:
   - Private-IP-Name:   HOST
     Private-Port-Name: PORT
