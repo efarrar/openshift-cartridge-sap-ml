@@ -24,7 +24,7 @@ return 0
 }
 
 function start {
-if [ ${OPENSHIFT_ML_FIRST_RUN} == Y ]; then
+if [ ${ML_FIRST_RUN} == Y ]; then
   ML_FIRST_RUN="N"
   set_env_var 'ML_FIRST_RUN' ${ML_FIRST_RUN} $env_dir
   client_result "Cartridge installed successfully"
