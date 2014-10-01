@@ -15,11 +15,14 @@ ln -s $OPENSHIFT_ML_DIR/versions/16.0/mobilink/libodbcinst.so $OPENSHIFT_ML_DIR/
 ML_DB_NAME=mobilink
 ML_USERNAME=$(generate_username)
 ML_PASSWORD=$(generate_password)
+ML_FIRST_RUN="Y"
 
 env_dir="${OPENSHIFT_ML_DIR}/env"
+
 set_env_var 'ML_DB_NAME' ${ML_DB_NAME} $env_dir
 set_env_var 'ML_USERNAME' ${ML_USERNAME} $env_dir
 set_env_var 'ML_PASSWORD' ${ML_PASSWORD} $env_dir
+set_env_var 'ML_FIRST_RUN' ${ML_FIRST_RUN} $env_dir
 
 mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D $OPENSHIFT_APP_NAME -e "CREATE SCHEMA mobilink; GRANT ALL ON mobilink.* to '${ML_USERNAME}'@'%' IDENTIFIED BY '${ML_PASSWORD}'; GRANT ALL ON ${OPENSHIFT_APP_NAME}.* TO '${ML_USERNAME}'@'%'"
 
