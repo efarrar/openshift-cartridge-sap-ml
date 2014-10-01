@@ -27,3 +27,13 @@ set_env_var 'OPENSHIFT_ML_FIRST_RUN' ${OPENSHIFT_ML_FIRST_RUN} $env_dir
 mysql -u $OPENSHIFT_MYSQL_DB_USERNAME --password=$OPENSHIFT_MYSQL_DB_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D $OPENSHIFT_APP_NAME -e "CREATE SCHEMA mobilink; GRANT ALL ON mobilink.* to '${ML_USERNAME}'@'%' IDENTIFIED BY '${ML_PASSWORD}'; GRANT ALL ON ${OPENSHIFT_APP_NAME}.* TO '${ML_USERNAME}'@'%'"
 
 mysql -u $OPENSHIFT_ML_USERNAME --password=$OPENSHIFT_ML_PASSWORD -h $OPENSHIFT_MYSQL_DB_HOST -P $OPENSHIFT_MYSQL_DB_PORT -D mobilink < $OPENSHIFT_ML_DIR/versions/16.0/mobilink/syncmys.sql
+
+
+cart_props "username=${OPENSHIFT_ML_USERNAME}"
+cart_props "password=${OPENSHIFT_ML_PASSWORD}"
+cart_props "database_name=${OPENSHIFT_ML_DB_NAME}"
+cart_props "mobilink_url=http://${OPENSHIFT_APP_DNS}/mobilink"
+
+
+set_app_info "Database Name: ${OPENSHIFT_ML_DB_NAME}; MobiLink User Name: ${OPENSHIFT_ML_USERNAME}; MobiLink User Password: ${OPENSHIFT_ML_PASSWORD}; MobiLink URL: http://${OPENSHIFT_APP_DNS}/mobilink"
+
