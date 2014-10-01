@@ -30,20 +30,20 @@ if [ ${ML_FIRST_RUN} == Y ]; then
 
   client_result "MobiLink 16.0 added. Please make note of these credentials:"
   client_result ""
-  client_result "   MobiLink User: ${ML_DB_USERNAME}"
+  client_result "       MobiLink User: ${ML_DB_USERNAME}"
   client_result "   MobiLink Password: ${ML_DB_PASSWORD}"
-  client_result "   Database Name: ${ML_DB_NAME}"
+  client_result "       Database Name: ${ML_DB_NAME}"
   client_result ""
   client_result "MobiLink URL: http://${OPENSHIFT_APP_DNS}/mobilink"
   client_result ""
-  client_result "***"
-  client_result "THE MOBILINK SERVER HAS *NOT* BEEN STARTED"
-  client_result "***"
+  client_result "   +-----------------------------------------------+"
+  client_result "   |  THE MOBILINK SERVER HAS *NOT* BEEN STARTED   |"  
+  client_result "   +-----------------------------------------------+"
   client_result ""
   client_result "Before the MobiLink Server can be started, you must view and accept the End User License Agreement"
   client_result ""
   client_result "To read the license agreement and instruction on accepting execute:"
-  client_result "  rhc cartridge-start mobilink --app ${OPENSHIFT_APP_NAME} | more"
+  client_result "   rhc cartridge-start mobilink --app ${OPENSHIFT_APP_NAME} | more"
   
 else  
   if [ ${ACCEPT_SAP_LICENSE_ML} == Y ] || [ ${ACCEPT_SAP_LICENSE_ML} == y ]; then
