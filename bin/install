@@ -37,3 +37,10 @@ cart_props "mobilink_url=http://${OPENSHIFT_APP_DNS}/mobilink"
 
 set_app_info "Database Name: ${OPENSHIFT_ML_DB_NAME}; MobiLink User Name: ${OPENSHIFT_ML_USERNAME}; MobiLink User Password: ${OPENSHIFT_ML_PASSWORD}; MobiLink URL: http://${OPENSHIFT_APP_DNS}/mobilink"
 
+client_result "MobiLink 16.0 added. Please make note of these credentials:"
+client_result ""
+client_result "       MobiLink User: ${OPENSHIFT_ML_USERNAME}"
+client_result "   MobiLink Password: ${OPENSHIFT_ML_PASSWORD}"
+client_result "       Database Name: ${OPENSHIFT_ML_DB_NAME}"
+client_result ""
+client_result "MobiLink URL: http://${OPENSHIFT_APP_DNS}/mobilink"
