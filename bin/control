@@ -42,7 +42,7 @@ if [ ${ML_FIRST_RUN} == Y ]; then
   client_result ""
   client_result "Before the MobiLink Server can be started, you must view and accept the End User License Agreement"
   client_result ""
-  client_result "To read the license agreement and instruction on accepting execute:"
+  client_result "Please read the license agreement and instruction on accepting:"
   client_result "   rhc cartridge-start mobilink --app ${OPENSHIFT_APP_NAME} | more"
   
 else  
