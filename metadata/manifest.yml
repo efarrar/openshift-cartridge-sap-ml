@@ -19,6 +19,8 @@ Website: http://www.sap.com
 Provides:
   - mobilink-16 
   - "mobilink"
+Requires:
+  - mysql-5.5
 Cart-Data:
   - Key: username
     Type: cart_data
